@@ -40,18 +40,15 @@ head,
   grid-area: visualizations;
 
   display: grid;
-  grid-template-columns: 50% auto;
+  grid-template-columns: 100% auto;
   grid-template-rows: auto;
-  grid-template-areas: "barchart scatterplot";
+  grid-template-areas: "chart";
 }
 
-.barchart {
-  grid-area: barchart;
+.chart {
+  grid-area: chart;
 }
 
-.scatterplot {
-  grid-area: scatterplot;
-}
 
 .button {
     /* 300px: width if the sidepanel defined in the grid-template for #root */

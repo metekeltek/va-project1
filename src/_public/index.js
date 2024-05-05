@@ -4,6 +4,7 @@ import {configs} from "../_server/static/configs.js"
 import {draw_barchart} from "./barchart.js"
 import {draw_scatterplot} from "./scatterplot.js"
 import * as d3 from "d3"
+import { draw_linechart } from "./linechart.js"
 
 let hostname = window.location.hostname
 let protocol = window.location.protocol
@@ -21,25 +22,41 @@ socket.on("disconnect", () => {
  * Callback, when the button is pressed to request the data from the server.
  * @param {*} parameters
  */
-let requestData = (parameters) => {
+// let requestData = (parameters) => {
+//   console.log(`requesting data from webserver (every 2sec)`)
+
+//   socket.emit("getData", {
+//     parameters,
+//   })
+// }
+
+let requestData = () => {
   console.log(`requesting data from webserver (every 2sec)`)
 
-  socket.emit("getData", {
-    parameters,
-  })
+  socket.emit("getData")
 }
 
 /**
  * Assigning the callback to request the data on click.
  */
+// document.getElementById("load_data_button").onclick = () => {
+//   console.log("testerror")
+
+//   let max_weight = document.getElementById("max_weight").value
+//   if (!isNaN(max_weight)) {
+//     max_weight = parseFloat(max_weight)
+//   } else {
+//     max_weight = Infinity
+//   }
+//   requestData({ max_weight })
+// }
+
+/**
+ * Assigning the callback to request the data on click.
+ */
 document.getElementById("load_data_button").onclick = () => {
-  let max_weight = document.getElementById("max_weight").value
-  if (!isNaN(max_weight)) {
-    max_weight = parseFloat(max_weight)
-  } else {
-    max_weight = Infinity
-  }
-  requestData({ max_weight })
+  console.log("test1")
+  requestData()
 }
 
 /**
@@ -54,28 +71,65 @@ let data = {
  * Callback that is called, when the requested data was sent from the server and is received in the frontend (here).
  * @param {*} payload
  */
+// let handleData = (payload) => {
+//   console.log(`Fresh data from Webserver:`)
+//   console.log(payload)
+//   // Parse the data into the needed format for the d3 visualizations (if necessary)
+//   // Here, the barchart shows two bars
+//   // So the data is preprocessed accordingly
+
+//   let count_too_much_weight = 0
+//   let count_good_weight = 0
+
+//   for (let person of payload.data) {
+//     if (person.bmi >= 25) {
+//       count_too_much_weight++
+//     } else {
+//       count_good_weight++
+//     }
+//   }
+
+//   data.barchart = [count_too_much_weight, count_good_weight]
+//   data.scatterplot = payload.data
+//   draw_barchart(data.barchart)
+//   draw_scatterplot(data.scatterplot)
+// }
+// socket.on("freshData", handleData)
+
+
 let handleData = (payload) => {
-  console.log(`Fresh data from Webserver:`)
-  console.log(payload)
+  console.log(`Fresh data from Webserver YEAHH:`)
   // Parse the data into the needed format for the d3 visualizations (if necessary)
   // Here, the barchart shows two bars
   // So the data is preprocessed accordingly
 
-  let count_too_much_weight = 0
-  let count_good_weight = 0
+  const yearData = {};
+  payload.data.forEach(game => {
+    const year = game.year;
+    const maxPlaytime = game.maxplaytime;
+    const minPlaytime = game.minplaytime;
 
-  for (let person of payload.data) {
-    if (person.bmi >= 25) {
-      count_too_much_weight++
-    } else {
-      count_good_weight++
+    if (!yearData[year]) {
+      yearData[year] = {
+        totalMaxPlaytime: 0,
+        totalMinPlaytime: 0,
+        count: 0
+      };
     }
-  }
+    yearData[year].totalMaxPlaytime += maxPlaytime;
+    yearData[year].totalMinPlaytime += minPlaytime;
+    yearData[year].count++;
+  });
 
-  data.barchart = [count_too_much_weight, count_good_weight]
-  data.scatterplot = payload.data
-  draw_barchart(data.barchart)
-  draw_scatterplot(data.scatterplot)
+  const averagePlaytimeByYear = Object.keys(yearData).map(year => ({
+    year: parseInt(year),
+    averageMaxPlaytime: yearData[year].totalMaxPlaytime / yearData[year].count,
+    averageMinPlaytime: yearData[year].totalMinPlaytime / yearData[year].count
+  }));
+
+  console.log(JSON.stringify(averagePlaytimeByYear))
+
+  draw_linechart(averagePlaytimeByYear)
 }
 
 socket.on("freshData", handleData)

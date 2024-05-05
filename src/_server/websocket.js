@@ -5,6 +5,7 @@ import { print_clientConnected, print_clientDisconnected } from "./static/utils.
 // const preprocessing = require("./preprocessing.js")
 import { is_below_max_weight, parse_numbers, calc_bmi } from "./preprocessing.js"
 import { getExampleLDA } from "./druidExample.js";
+import boardgames_100 from '../../data/boardgames_100.json' assert { type: 'json' };
 
 const file_path = "data/"
 const file_name = "example_data.csv"
@@ -47,38 +48,46 @@ export function setupConnection(socket) {
    *      - Filtering: if the row has a value, that contradicts the filtering parameters, data row will be excluded
    *          (in this case: weight should not be larger than the max_weight filter-parameter)
    */
-  socket.on("getData", (obj) => {
-    console.log(`Data request with properties ${JSON.stringify(obj)}...`)
+  // socket.on("getData", (obj) => {
+  //   console.log(`Data request with properties ${JSON.stringify(obj)}...`)
 
-    getExampleLDA(); //Example how to use druidjs. Just prints to the console for now
+  //   getExampleLDA(); //Example how to use druidjs. Just prints to the console for now
 
 
-    let parameters = obj.parameters
+  //   let parameters = obj.parameters
 
-    let jsonArray = []
+  //   let jsonArray = []
 
-    // This is reading the .csv file line by line
-    // So we can filter it line by line
-    // This saves a lot of RAM and processing time
-    fs.createReadStream(file_path + file_name)
-      .pipe(parse({ delimiter: ',', columns: true }))
-      .on('data', function (row) {
-        row = parse_numbers(row)
-        row = calc_bmi(row)
-        // Filtering the data according the given parameter
-        // If it fits the parameter, add it to the result-array
-        let row_meets_criteria = is_below_max_weight(parameters, row)
-        if (row_meets_criteria) {
-          jsonArray.push(row)
-        }
-      })
-      .on("end", () => { //when all data is ready and processed, send it to the frontend of the socket
-        socket.emit("freshData", {
-          timestamp: new Date().getTime(),
-          data: jsonArray,
-          parameters: parameters,
-        })
-      })
+  //   // This is reading the .csv file line by line
+  //   // So we can filter it line by line
+  //   // This saves a lot of RAM and processing time
+  //   fs.createReadStream(file_path + file_name)
+  //     .pipe(parse({ delimiter: ',', columns: true }))
+  //     .on('data', function (row) {
+  //       row = parse_numbers(row)
+  //       row = calc_bmi(row)
+  //       // Filtering the data according the given parameter
+  //       // If it fits the parameter, add it to the result-array
+  //       let row_meets_criteria = is_below_max_weight(parameters, row)
+  //       if (row_meets_criteria) {
+  //         jsonArray.push(row)
+  //       }
+  //     })
+  //     .on("end", () => { //when all data is ready and processed, send it to the frontend of the socket
+  //       socket.emit("freshData", {
+  //         timestamp: new Date().getTime(),
+  //         data: jsonArray,
+  //         parameters: parameters,
+  //       })
+  //     })
+  //   console.log(`freshData emitted`)
+  // })
+
+  socket.on("getData", () => {
+    socket.emit("freshData", {
+      data: boardgames_100,
+    })
+    
     console.log(`freshData emitted`)
   })
 }
