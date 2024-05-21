@@ -4,7 +4,7 @@ import * as fs from "fs"
 import { print_clientConnected, print_clientDisconnected } from "./static/utils.js"
 // const preprocessing = require("./preprocessing.js")
 import { is_below_max_weight, parse_numbers, calc_bmi } from "./preprocessing.js"
-import { getExampleLDA } from "./druidExample.js";
+import { getExampleLDA, getLDA } from "./druidExample.js";
 import boardgames_100 from '../../data/boardgames_100.json' assert { type: 'json' };
 
 const file_path = "data/"
@@ -84,10 +84,22 @@ export function setupConnection(socket) {
   // })
 
   socket.on("getData", () => {
+    getExampleLDA()
     socket.emit("freshData", {
       data: boardgames_100,
     })
     
     console.log(`freshData emitted`)
+  })
+
+
+  socket.on("getLDAData", () => {
+    let lda = getLDA(boardgames_100);
+    // socket.emit("freshLDAData", {
+    //   data: boardgames_100,
+    //   lda: lda
+    // })
+    
+    console.log(`freshLDAData emitted`)
   })
 }

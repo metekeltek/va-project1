@@ -36,6 +36,12 @@ let requestData = () => {
   socket.emit("getData")
 }
 
+let requestLDAData = () => {
+  console.log(`requesting data from webserver (every 2sec)`)
+
+  socket.emit("getLDAData")
+}
+
 /**
  * Assigning the callback to request the data on click.
  */
@@ -57,6 +63,11 @@ let requestData = () => {
 document.getElementById("load_data_button").onclick = () => {
   console.log("test1")
   requestData()
+}
+
+document.getElementById("load_LDA_button").onclick = () => {
+  console.log("test2")
+  requestLDAData()
 }
 
 /**
