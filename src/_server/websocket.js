@@ -95,10 +95,11 @@ export function setupConnection(socket) {
 
   socket.on("getLDAData", () => {
     let lda = getLDA(boardgames_100);
-    // socket.emit("freshLDAData", {
-    //   data: boardgames_100,
-    //   lda: lda
-    // })
+    
+    socket.emit("freshLDAData", {
+      data: boardgames_100,
+      lda: lda
+    })
     
     console.log(`freshLDAData emitted`)
   })

@@ -143,7 +143,15 @@ let handleData = (payload) => {
   draw_linechart(averagePlaytimeByYear)
 }
 
+let handleLDAData = (payload) => {
+
+  draw_scatterplot(payload.lda)
+  console.log(payload.lda)
+}
+
 socket.on("freshData", handleData)
+socket.on("freshLDAData", handleLDAData)
+
 
 let width = 0
 let height = 0
