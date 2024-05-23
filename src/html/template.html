@@ -19,8 +19,38 @@
           placeholder="Max. weight..."
         /> -->
 
-        <button id="load_data_button" class="button">Analyse Playtime</button>
-        <button id="load_LDA_button" class="button">Analyse Max-Player LDA</button>
+
+
+
+        <button id="load_data_button" class="button" style="margin-bottom: 10px;">Analyse Playtime</button>
+        
+
+        <p><b>Choose Class for LDA:</b></p>
+
+        <!-- Individual attributes radio buttons -->
+        <input type="radio" id="year" name="attribute" value="year" checked>
+        <label for="year">Year</label><br>
+
+        <input type="radio" id="minplayers" name="attribute" value="minplayers">
+        <label for="minplayers">Min Players</label><br>
+
+        <input type="radio" id="maxplayers" name="attribute" value="maxplayers">
+        <label for="maxplayers">Max Players</label><br>
+
+        <input type="radio" id="minage" name="attribute" value="minage">
+        <label for="minage">Min Age</label><br>
+
+        <input type="radio" id="minplaytime" name="attribute" value="minplaytime">
+        <label for="minplaytime">Min Playtime</label><br>
+
+        <input type="radio" id="maxplaytime" name="attribute" value="maxplaytime">
+        <label for="maxplaytime">Max Playtime</label><br>
+
+        <input type="radio" id="categories" name="attribute" value="categories">
+        <label for="categories">Categories</label><br>
+
+      <button id="load_LDA_button" class="button" style="margin-top: 10px;">Analyse Max-Player LDA</button>
+      <p style="color: grey;">The LDA Alrgorithm reduces from 6 Dimensions (minplayers, maxplayers, minage, minplaytime, maxplaytime) to 2 Dimensions.</p>
       </div>
       <div class="visualizations">
         <div class="chart">

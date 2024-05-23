@@ -36,10 +36,12 @@ let requestData = () => {
   socket.emit("getData")
 }
 
-let requestLDAData = () => {
+let requestLDAData = (selectedClass) => {
   console.log(`requesting data from webserver (every 2sec)`)
 
-  socket.emit("getLDAData")
+  socket.emit("getLDAData", {
+    class: selectedClass,
+  })
 }
 
 /**
@@ -66,9 +68,20 @@ document.getElementById("load_data_button").onclick = () => {
 }
 
 document.getElementById("load_LDA_button").onclick = () => {
+  var selectedOption = document.querySelector('input[name="attribute"]:checked');
+  
+  // If a radio button is checked, print its value
+  if (selectedOption) {
+    console.log("Selected Option:", selectedOption.value);
+  } else {
+    console.log("No option selected");
+  }
+
   console.log("test2")
-  requestLDAData()
+  requestLDAData(selectedOption.value)
 }
+
+
 
 /**
  * Object, that will store the loaded data.
@@ -145,7 +158,7 @@ let handleData = (payload) => {
 
 let handleLDAData = (payload) => {
 
-  draw_scatterplot(payload.lda)
+  draw_scatterplot(payload.lda, payload.selectedClass)
   console.log(payload.lda)
 }
 

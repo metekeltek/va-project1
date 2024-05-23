@@ -93,12 +93,12 @@ export function setupConnection(socket) {
   })
 
 
-  socket.on("getLDAData", () => {
-    let lda = getLDA(boardgames_100);
-    
+  socket.on("getLDAData", (selectedClass) => {
+    let lda = getLDA(boardgames_100, selectedClass.class);
+
     socket.emit("freshLDAData", {
       data: boardgames_100,
-      lda: lda
+      lda: lda,
     })
     
     console.log(`freshLDAData emitted`)
