@@ -1,8 +1,6 @@
 import * as d3 from "d3"
 
 export function draw_barchart (data) {
-  console.log("drawing barchart")
-
   /**
    * Margins of the visualization.
    */

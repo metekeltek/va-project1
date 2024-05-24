@@ -18,18 +18,6 @@ socket.on("disconnect", () => {
   console.log("Disconnected from " + socketUrl + ".")
 })
 
-/**
- * Callback, when the button is pressed to request the data from the server.
- * @param {*} parameters
- */
-// let requestData = (parameters) => {
-//   console.log(`requesting data from webserver (every 2sec)`)
-
-//   socket.emit("getData", {
-//     parameters,
-//   })
-// }
-
 let requestData = () => {
   console.log(`requesting data from webserver (every 2sec)`)
 
@@ -47,37 +35,12 @@ let requestLDAData = (selectedClass) => {
 /**
  * Assigning the callback to request the data on click.
  */
-// document.getElementById("load_data_button").onclick = () => {
-//   console.log("testerror")
-
-//   let max_weight = document.getElementById("max_weight").value
-//   if (!isNaN(max_weight)) {
-//     max_weight = parseFloat(max_weight)
-//   } else {
-//     max_weight = Infinity
-//   }
-//   requestData({ max_weight })
-// }
-
-/**
- * Assigning the callback to request the data on click.
- */
 document.getElementById("load_data_button").onclick = () => {
-  console.log("test1")
   requestData()
 }
 
 document.getElementById("load_LDA_button").onclick = () => {
   var selectedOption = document.querySelector('input[name="attribute"]:checked');
-  
-  // If a radio button is checked, print its value
-  if (selectedOption) {
-    console.log("Selected Option:", selectedOption.value);
-  } else {
-    console.log("No option selected");
-  }
-
-  console.log("test2")
   requestLDAData(selectedOption.value)
 }
 
@@ -91,42 +54,7 @@ let data = {
   scatterplot: undefined,
 }
 
-/**
- * Callback that is called, when the requested data was sent from the server and is received in the frontend (here).
- * @param {*} payload
- */
-// let handleData = (payload) => {
-//   console.log(`Fresh data from Webserver:`)
-//   console.log(payload)
-//   // Parse the data into the needed format for the d3 visualizations (if necessary)
-//   // Here, the barchart shows two bars
-//   // So the data is preprocessed accordingly
-
-//   let count_too_much_weight = 0
-//   let count_good_weight = 0
-
-//   for (let person of payload.data) {
-//     if (person.bmi >= 25) {
-//       count_too_much_weight++
-//     } else {
-//       count_good_weight++
-//     }
-//   }
-
-//   data.barchart = [count_too_much_weight, count_good_weight]
-//   data.scatterplot = payload.data
-//   draw_barchart(data.barchart)
-//   draw_scatterplot(data.scatterplot)
-// }
-// socket.on("freshData", handleData)
-
-
 let handleData = (payload) => {
-  console.log(`Fresh data from Webserver YEAHH:`)
-  // Parse the data into the needed format for the d3 visualizations (if necessary)
-  // Here, the barchart shows two bars
-  // So the data is preprocessed accordingly
-
   const yearData = {};
   payload.data.forEach(game => {
     const year = game.year;
@@ -151,15 +79,11 @@ let handleData = (payload) => {
     averageMinPlaytime: yearData[year].totalMinPlaytime / yearData[year].count
   }));
 
-  console.log(JSON.stringify(averagePlaytimeByYear))
-
   draw_linechart(averagePlaytimeByYear)
 }
 
 let handleLDAData = (payload) => {
-
   draw_scatterplot(payload.lda, payload.selectedClass)
-  console.log(payload.lda)
 }
 
 socket.on("freshData", handleData)
