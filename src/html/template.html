@@ -49,15 +49,30 @@
         <input type="radio" id="categories" name="attribute" value="categories">
         <label for="categories">Categories</label><br>
 
-      <button id="load_LDA_button" class="button" style="margin-top: 10px;">Analyse Max-Player LDA</button>
+      <button id="load_LDA_button" class="button" style="margin-top: 10px;">Analyse LDA</button>
       <p style="color: grey;">The LDA Alrgorithm reduces from 6 Dimensions (minplayers, maxplayers, minage, minplaytime, maxplaytime) to 2 Dimensions.</p>
+      <p><b>Choose distance Measure:</b></p>
+    
+      <input type="radio" id="Manhattan" name="distance" value="Manhattan" checked>
+      <label for="Manhattan">Manhattan</label><br>
+
+      <input type="radio" id="Euclidian" name="distance" value="Euclidian">
+      <label for="Euclidian">Euclidian</label><br>
+
+      <input type="radio" id="Chebyshev" name="distance" value="Chebyshev">
+      <label for="Chebyshev">Chebyshev</label><br>
+
+      <label style="margin-top: 10px;" for="k"><b>Choose number of k's:</b></label>
+      <input style="margin-top: 10px;" type="number" id="k" name="k" min="0" max="5000" step="1" value="3">
+
+      
+      <button id="load_clustering_button" class="button" style="margin-top: 10px;">Analyse Clustering</button>
+
+      <button id="load_graph" class="button" style="margin-top: 10px;">Analyse Recommendations</button>
       </div>
       <div class="visualizations">
         <div class="chart">
           <svg class="svg_root" id="chart_svg">
-            <g id="g_x_axis_chart"></g>
-            <g id="g_y_axis_chart"></g>
-            <g id="g_chart"></g>
           </svg>
         </div>
       </div>

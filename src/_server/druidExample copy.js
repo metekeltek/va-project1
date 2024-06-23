@@ -54,60 +54,60 @@ function extractAttributes(originalData, selectedClass) {
       switch(selectedClass) {
         case "year":
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.min_players);
-          extractedAttributes.push(boardgame.max_players);
-          extractedAttributes.push(boardgame.min_age);
-          extractedAttributes.push(boardgame.min_time);
-          extractedAttributes.push(boardgame.max_time);
+          extractedAttributes.push(boardgame.minplayers);
+          extractedAttributes.push(boardgame.maxplayers);
+          extractedAttributes.push(boardgame.minage);
+          extractedAttributes.push(boardgame.minplaytime);
+          extractedAttributes.push(boardgame.maxplaytime);
           break;
         case "minplayers":
           extractedAttributes.push(boardgame.year);
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.max_players);
-          extractedAttributes.push(boardgame.min_age);
-          extractedAttributes.push(boardgame.min_time);
-          extractedAttributes.push(boardgame.max_time);
+          extractedAttributes.push(boardgame.maxplayers);
+          extractedAttributes.push(boardgame.minage);
+          extractedAttributes.push(boardgame.minplaytime);
+          extractedAttributes.push(boardgame.maxplaytime);
           break;
         case "maxplayers":
           extractedAttributes.push(boardgame.year);
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.min_players);
-          extractedAttributes.push(boardgame.min_age);
-          extractedAttributes.push(boardgame.min_time);
-          extractedAttributes.push(boardgame.max_time);
+          extractedAttributes.push(boardgame.minplayers);
+          extractedAttributes.push(boardgame.minage);
+          extractedAttributes.push(boardgame.minplaytime);
+          extractedAttributes.push(boardgame.maxplaytime);
           break;
         case "minage":
           extractedAttributes.push(boardgame.year);
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.min_players);
-          extractedAttributes.push(boardgame.max_players);
-          extractedAttributes.push(boardgame.min_time);
-          extractedAttributes.push(boardgame.max_time);
+          extractedAttributes.push(boardgame.minplayers);
+          extractedAttributes.push(boardgame.maxplayers);
+          extractedAttributes.push(boardgame.minplaytime);
+          extractedAttributes.push(boardgame.maxplaytime);
           break;
         case "minplaytime":
           extractedAttributes.push(boardgame.year);
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.min_players);
-          extractedAttributes.push(boardgame.max_players);
-          extractedAttributes.push(boardgame.min_age);
-          extractedAttributes.push(boardgame.max_time);
+          extractedAttributes.push(boardgame.minplayers);
+          extractedAttributes.push(boardgame.maxplayers);
+          extractedAttributes.push(boardgame.minage);
+          extractedAttributes.push(boardgame.maxplaytime);
           break;
         case "maxplaytime":
           extractedAttributes.push(boardgame.year);
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.min_players);
-          extractedAttributes.push(boardgame.max_players);
-          extractedAttributes.push(boardgame.min_age);
-          extractedAttributes.push(boardgame.min_time);
+          extractedAttributes.push(boardgame.minplayers);
+          extractedAttributes.push(boardgame.maxplayers);
+          extractedAttributes.push(boardgame.minage);
+          extractedAttributes.push(boardgame.minplaytime);
           break;
         default:
           extractedAttributes.push(boardgame.year);
           extractedAttributes.push(boardgame.rank);
-          extractedAttributes.push(boardgame.min_players);
-          extractedAttributes.push(boardgame.max_players);
-          extractedAttributes.push(boardgame.min_age);
-          extractedAttributes.push(boardgame.min_time);
-          extractedAttributes.push(boardgame.max_time);
+          extractedAttributes.push(boardgame.minplayers);
+          extractedAttributes.push(boardgame.maxplayers);
+          extractedAttributes.push(boardgame.minage);
+          extractedAttributes.push(boardgame.minplaytime);
+          extractedAttributes.push(boardgame.maxplaytime);
           break;
       }
 
@@ -126,22 +126,22 @@ function extractClasses(originalData, selectedClass) {
         extractedClasses.push(boardgame.year);
         break;
       case "minplayers":
-        extractedClasses.push(boardgame.min_players);
+        extractedClasses.push(boardgame.minplayers);
         break;
       case "maxplayers":
-        extractedClasses.push(boardgame.max_players);
+        extractedClasses.push(boardgame.maxplayers);
         break;
       case "minage":
-        extractedClasses.push(boardgame.min_age);
+        extractedClasses.push(boardgame.minage);
         break;
       case "minplaytime":
-        extractedClasses.push(boardgame.min_time);
+        extractedClasses.push(boardgame.minplaytime);
         break;
       case "maxplaytime":
-        extractedClasses.push(boardgame.max_time);
+        extractedClasses.push(boardgame.maxplaytime);
         break;
       default:
-        extractedClasses.push(boardgame.category.split(',')[0]);
+        extractedClasses.push(boardgame.types.categories[0].name);
         break;
     }
   });

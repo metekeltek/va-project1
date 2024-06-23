@@ -2,13 +2,7 @@ import * as d3 from "d3";
 
 export function draw_linechart(data) {
 
-  let svg = d3.select('#chart_svg');
-  svg.select(".legend").remove();
-
-  // Remove existing scatterplot elements
-  svg.select("#g_chart").selectAll("*").remove();
-  svg.select("#g_x_axis_chart").selectAll("*").remove();
-  svg.select("#g_y_axis_chart").selectAll("*").remove();
+  let svg = d3.select('#chart_svg').selectAll("*").remove();
 
   const margin = {
     top: 50,
@@ -21,6 +15,9 @@ export function draw_linechart(data) {
    * Selection of svg and groups to be drawn on.
    */
   svg = d3.select("#chart_svg");
+  svg.append("g").attr("id", "g_chart");
+  svg.append("g").attr("id", "g_x_axis_chart");
+  svg.append("g").attr("id", "g_y_axis_chart");
   let g_linechart = d3.select("#g_chart");
   let g_x_axis_linechart = d3.select("#g_x_axis_chart");
   let g_y_axis_linechart = d3.select("#g_y_axis_chart");
@@ -172,7 +169,8 @@ export function draw_linechart(data) {
   y_label.exit().remove();
 
   const legend = svg.append("g")
-  .attr("class", "legend");
+  .attr("class", "legend")
+  .attr("id", "legend");
 
 const legendRectSize = 18;
 const legendSpacing = 4;
