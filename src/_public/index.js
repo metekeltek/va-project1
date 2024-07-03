@@ -115,11 +115,15 @@ let handleClusteringData = (payload) => {
   let minYear = Math.min(...games.map(d => d.year));
   let maxYear = Math.max(...games.map(d => d.year));
 
+
   games.forEach(game => {
-      clusteringDataAsArray.push([
-        (game.avg_rating - minRating) / (maxRating - minRating), 
-        (game.year - minYear) / (maxYear - minYear)
-      ])
+      clusteringDataAsArray.push({
+        dataPoint: [
+          (game.avg_rating - minRating) / (maxRating - minRating),
+          (game.year - minYear) / (maxYear - minYear)
+        ],
+        bgg_id: game.bgg_id
+    })
   });
   console.log(clusteringDataAsArray)
 

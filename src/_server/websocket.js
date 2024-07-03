@@ -65,7 +65,7 @@ export function setupConnection(socket) {
   })
 
   socket.on("getClusteringData", (obj) => {
-    console.log(chakalaka)
+    //console.log(chakalaka)
     console.log("chakalaka.length:" + chakalaka.length)
 
     socket.emit("freshClusteringData", {
@@ -78,7 +78,7 @@ export function setupConnection(socket) {
 
   socket.on("getGraphData", () => {
 
-    console.log(preparedRecommendations)
+    //console.log(preparedRecommendations)
     console.log("preparedRecommendations.length:" + preparedRecommendations.length)
 
     socket.emit("freshGraphData", {

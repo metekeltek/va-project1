@@ -5,7 +5,8 @@
 
 export function getNewKMeans(dataPointsToCluster, clusteringObj) {
     console.log("now: " + clusteringObj.selectedDistance)
-    console.log("now: " + clusteringObj.selectedK)
+    console.log("now: " + JSON.stringify(dataPointsToCluster))
+    console.log("now: " + clusteringObj)
     let contributionPerVariable = [0.5,0.5];
     let k = clusteringObj.selectedK;
 
@@ -24,8 +25,8 @@ export function getNewKMeans(dataPointsToCluster, clusteringObj) {
 export function kMeans(dataPointsToCluster, k, contributionPerVariable, distanceMeasure) {
 
     //Add the required fields to the object
-    let dataObjects = dataPointsToCluster.map(dataPoint => {
-        return { dataPoint: dataPoint, centroidIndex: 0 };
+    let dataObjects = dataPointsToCluster.map(item => {
+        return { dataPoint: item.dataPoint, centroidIndex: 0, bgg_id: item.bgg_id };
     })
     //initialize with random centroids
     let centroids = getRandomCentroids(dataObjects, k);
@@ -126,7 +127,7 @@ function assignDatapointsToCentroids(
                 centroidIndex = index;
             }
         });
-        return { dataPoint: dataObject.dataPoint, centroidIndex: centroidIndex }; //add it to the mapping
+        return { dataPoint: dataObject.dataPoint, centroidIndex: centroidIndex, bgg_id:dataObject.bgg_id  }; //add it to the mapping
     });
 }
 
